@@ -1,0 +1,22 @@
+What distribution algorithm your load balancer is configured with and how it works?
+HAProxy load balancer is used with the Round Robin distribution algorithm. In this algorithm requests are served by the server sequentially one after another.
+
+
+Is your load-balancer enabling an Active-Active or Active-Passive setup, explain the difference between both?
+The HAProxy load-balancer is enabling an Active-Passive  setup.
+In an Active-Active setup, the load balancer distributes workloads across all nodes . On the other hand, in an Active-Passive setup, not all nodes are going to be active. If we have two nodes, for example, if the first node is already active, the second node must be passive or on standby.The second node can become an active node if the preceding node is inactive.
+
+
+How a database Primary-Replica (Master-Slave) cluster works?
+It configures one server as the Primary server and the other as a Replica of the Primary server. The Primary server is able to  perform read or write requests while the Replica server is only able to perform read requests. Data is synchronized between the Primary and Replica servers whenever the Primary server executes a write operation.
+
+
+What is the difference between the Primary node and the Replica node in regard to the application?
+the primary node perform all write operations on the web while replica node perform only read operations
+
+
+
+Issues with this infrastructure: 
+-  there are two SPOF ,the first one is the MYSQL database. If it is down  ,the entire site would be down. The other one is load-balancer that connects to servers.
+- because there is no SSL the data that is transmitted over the network is not encrypted so hackers can use this data .Also there is no firewall so it's hard to block unauthorized IP.
+-  since there is no monitoring tools it is impossible to track the status of servers and other components. 

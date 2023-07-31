@@ -1,0 +1,29 @@
+What is a server?
+A server is a computer hardware or software that provides functionality for other programs or devices, called  clients.
+
+What is the role of the domain name?
+it provides a human-readable name for IP addresses.
+
+
+What type of DNS record www is in www.foobar.com?
+www.foobar.com uses an A record.
+
+What is the role of the web server?
+It is a software or hardware that accepts requests via HTTP or HTTPS and responds with the content of the requested resource or an error message.
+
+What is the role of the application server?
+Hosts web apps that allow users in the network to run and use them, without having to install a copy on their own computers.
+
+The role of the database?
+database maintains an organized information that can easily be accessed, managed and updated.
+
+
+What is the server using to communicate with the computer of the user requesting the website?
+Communication between the client and the server occurs over the internet network through the TCP/IP protocol
+
+Issues with this infrastructure: 
+
+-  There is a SPOT which is the MySQL database.So if it is down  the entire site would be down.
+- if we want to do some maintenance to  checks on any component ,
+we have to turn off the server, thus the web experiencing a downtime. 
+-  since there is one server it's hard to scale this infrastructure, so the server will run out or  slow down when it starts receiving a lot of requests

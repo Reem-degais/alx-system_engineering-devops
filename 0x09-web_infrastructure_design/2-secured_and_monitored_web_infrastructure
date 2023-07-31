@@ -1,0 +1,28 @@
+What are firewalls for؟
+Firewalls allow, limit, and block network traffic based on preconfigured rules, also useful for allowing remote access to a private network through secure authentication certificates and logins.
+
+Why is the traffic served over HTTPS
+HTTPS  use secure protocols to encrypt communications between the browser and the website.
+
+What monitoring is used for?
+Software monitoring will watch computer metrics, record them, and emit an alert if something is unusual or that could make the computer not work properly happens.
+
+How the monitoring tool is collecting data?
+server monitoring method will vary depending on the server monitoring software solution you choose for example, NewRelic will give you a detailed analysis of how quickly your website loads in a browser,DataDog measure and monitor everything with graphs.
+
+Explain what to do if you want to monitor your web server QPS?
+Installing Sumo Logic Collector: First we Set up a Sumo Logic Collector on our web server to collect and forward the necessary logs and metrics to the Sumo Logic platform. The Collector acts as the data collection agent.
+Configuring Log Collection: Configuring the Sumo Logic Collector to collect relevant logs from our web server. These logs may include access logs, application logs, or any other logs containing information about incoming queries or requests.
+Set Up Metric Collection: we may need to configure additional metric collection.  Ensuring that the necessary metrics are enabled and set up for collection.
+Creating Queries and Dashboards: In the Sumo Logic web interface, we create queries to extract and analyze QPS data from the collected logs and metrics. We can use Sumo Logic's powerful search and analytics capabilities to create custom queries that aggregate and visualize QPS over time.
+
+Building a QPS Dashboard: Creating a dedicated dashboard in Sumo Logic to display the QPS metrics and insights. Including relevant charts, graphs, or widgets to provide a clear view of the web server's QPS trends and patterns.
+Set Up Real-Time Alerts: Defining real-time alerts in Sumo Logic based on QPS thresholds. This way, we can get notified immediately if the QPS exceeds or falls below desired levels, helping us proactively respond to potential issues.
+Analyze Performance Trends: Regularly analyzing the QPS data on the Sumo Logic dashboard to identify performance trends and patterns. This analysis can help us understand peak usage times, assess the impact of changes or marketing campaigns, and plan for future resource needs.
+Correlate with Other Metrics: To get a comprehensive view of our web server's performance, correlate QPS data with other relevant metrics, such as response times, error rates, and resource utilization. This helps identify performance bottlenecks and potential areas for optimization.
+Share Reports: Sumo Logic allows us to share reports and dashboards with team members, stakeholders, or management. Sharing relevant QPS insights with the right audience can facilitate informed decision-making and promote a data-driven approach to managing our web server
+
+Issues with this infrastructure:
+-  Terminating SSL at the load balancer level would make the traffic between the load balancer and the web servers unencrypted.
+- having only one MySQL server capable of accepting writes can act as SPOF.
+-  Having servers with all the same components can lead to poor performance
