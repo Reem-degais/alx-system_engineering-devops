@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# juio
+SendEnv LANG LC_*
+IdentityFile ~/.ssh/school
+PasswordAuthentication no
+HashKnownHosts yes
+GSSAPIAuthentication yes
+GSSAPIDelegateCredentials no
