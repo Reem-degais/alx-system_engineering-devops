@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+#Install nginx on web server
+
+sudo apt-get update
+sudo apt-get install -y nginx
+sudo ufw 'Nginx HTTP'
+
+echo "Hello World!" | sudo tee /var/www/html/index.html
+SE="server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        root /var/www/html;
+
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+
+        location / {
+        try_files $uri $uri/ =404;
+        }
+}"
+
+bash -c "echo -e '$SE'" > /etc/nginx/sites-enabled/default
+
+string_for_replacement="server_name_;\n\trewrite ^\/redirect_me https:\/\/github.com\/Reem-degais permanent;"
+bash -c "echo -e '$string_for_replacement'" > /etc/nginx/sites-enabled/default
+
+sudo nginx -t
+sudo service nginx reload
