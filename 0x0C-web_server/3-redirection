@@ -6,8 +6,8 @@ sudo apt-get install -y nginx
 
 echo "Hello World!" | sudo tee /var/www/html/index.html
 
-string_for_replacement="sever_name_;\n\trewrite ^\/redirect_me https:\/\/github.com\/Reem-degais permanent;"
 
-sudo sed -i "s/server_name_;/$string_for_replacement/" /etc/nginx/sites-enabled/default
-
+sudo cp /etc/nginx/sites-enabled/default /etc/nginx/sites-enabled/default.bak
+string_for_replacement="server_name_;\n\trewrite ^\/redirect_me https:\/\/github.com\/Reem-degais permanent;"
+bash -c "echo -e '$string_for_replacement'" > /etc/nginx/sites-enabled/default
 sudo service nginx restart
