@@ -1,29 +1,29 @@
 #!/usr/bin/env bash
-#Install nginx on web server
+# Install Nginx with server 0x01 config
+#+ add HTTP header named X-Served-By $HOSTNAME
 
-sudo apt-get update
-sudo apt-get install -y nginx
-sudo ufw 'Nginx HTTP'
+apt-get update
+apt-get install -y nginx
 
+mkdir -p /var/www/html
+sudo touch /var/www/html/index.html
 echo "Hello World!" | sudo tee /var/www/html/index.html
-SE="server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-        root /var/www/html;
+sudo touch /var/www/html/404.html
+sudo echo "Ceci n'est pas une page" | sudo tee  /var/www/html/404.html
+sudo printf %s "server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    add_header X-Served-By $HOSTNAME;
+    root   /var/www/html;
+    index  index.html index.htm;
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=xJJsoquu70o/;
+    }
+    error_page 404 /404.html;
+    location /404 {
+      root /var/www/html;
+      internal;
+    }
+}" | sudo tee /etc/nginx/sites-enabled/default
 
-        index index.html index.htm index.nginx-debian.html;
-
-        server_name _;
-
-        location / {
-        try_files $uri $uri/ =404;
-        }
-}"
-
-bash -c "echo -e '$SE'" > /etc/nginx/sites-enabled/default
-
-string_for_replacement="server_name_;\n\trewrite ^\/redirect_me https:\/\/github.com\/Reem-degais permanent;"
-bash -c "echo -e '$string_for_replacement'" > /etc/nginx/sites-enabled/default
-
-sudo nginx -t
-sudo service nginx reload
+sudo service nginx restart
