@@ -18,7 +18,7 @@ SE="server {
         }
 }"
 
-bash -c "echo -e '$SE'" > /etc/nginx/sites-enabled/default
+bash -c "echo -e '$SE'" | sudo /etc/nginx/sites-enabled/default
 
 sudo echo "Ceci n'est pas une page" | sudo /usr/share/nginx/html/custom_404.html
 sudo sed -i "/listen 80 default_server/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;" /etc/nginx/sites-available/default
