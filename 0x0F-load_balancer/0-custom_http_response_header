@@ -6,12 +6,11 @@ apt-get update
 apt-get install -y nginx
 
 mkdir -p /var/www/html
-touch /var/www/html/index.html
-echo "Hello World!" > /var/www/html/index.html
-touch /var/www/html/404.html
-echo "Ceci n'est pas une page" > /var/www/html/404.html
-
-printf %s "server {
+sudo touch /var/www/html/index.html
+echo "Hello World!" | sudo tee /var/www/html/index.html
+sudo touch /var/www/html/404.html
+sudo echo "Ceci n'est pas une page" | sudo tee  /var/www/html/404.html
+sudo printf %s "server {
     listen 80 default_server;
     listen [::]:80 default_server;
     add_header X-Served-By $HOSTNAME;
@@ -25,6 +24,6 @@ printf %s "server {
       root /var/www/html;
       internal;
     }
-}" > /etc/nginx/sites-enabled/default
+}" | sudo tee /etc/nginx/sites-enabled/default
 
 sudo service nginx restart
