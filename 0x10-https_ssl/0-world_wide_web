@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# write a Bash script that will display information about subdomains.
+
+function subdomains {
+    local domain="$1"
+    local subdomain="$2"
+
+    if [ -z "$subdomain" ]; then
+        sub_domain=("www" "lb-01" "web-01" "web-02")
+    else
+        sub_domain=($subdomain)
+    fi
+
+    for sub in "${sub_domain[@]}";do
+        record=$(dig "$sub.$domain" | awk '/ANSWER SECTION/ { getline; print $4 }')
+        des=$(dig "$sub.$domain" | awk '/ANSWER SECTION/ { getline; print $5 }')
+        echo "The subdomain $sub is a $record record and points to $des"
+    done
+}
+
+subdomains "$1" "$2"
