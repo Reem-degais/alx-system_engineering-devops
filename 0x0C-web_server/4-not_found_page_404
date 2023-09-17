@@ -1,16 +1,26 @@
-ing sed to redirect 301 moved permanently
+#!/usr/bin/env bash
+#Install nginx on web server
 
 sudo apt-get update
 sudo apt-get install -y nginx
 
 echo "Hello World!" | sudo tee /var/www/html/index.html
+sudo echo "Ceci n'est pas une page" | sudo tee  /var/www/html/404.html
 
-string_for_replacement="sever_name_;\n\trewrite ^\/redirect_me https:\/\/github.com\/Reem-degais permanent;"
-
-sudo sed -i "s/server_name_;/$string_for_replacement/" /etc/nginx/sites-enabled/default
-
-string_for_replacement="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\troot \/var\/www\/html;\n\tinternal;\n\t}"
-
-sudo sed -i "s/listen 80 default_server;/$string_for_replacement/" /etc/nginx/sites-enabled/default
+sudo printf %s "server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    add_header X-Served-By $HOSTNAME;
+    root   /var/www/html;
+    index  index.html index.htm;
+    location /redirect_me {
+        return 301 https://www.github.com/Reem-degais/;
+    }
+    error_page 404 /404.html;
+    location /404 {
+      root /var/www/html;
+      internal;
+    }
+}" | sudo tee /etc/nginx/sites-enabled/default
 
 sudo service nginx restart
