@@ -5,14 +5,14 @@ the titles of all hot articles for a given subreddit"""
 import requests
 
 
-def recurse(subreddit, hot_list=[]):
+def recurse(subreddit, hot_list=[], after=''):
     """list containing the titles of all hot articles for a given subreddit"""
     url = 'https://www.reddit.com'
     api_url = '{}/r/{}/hot,json'.format(url, subreddit)
     user_agent = {'User-Agent': 'Python/requests'}
     top = {'after': after, 'limit': '100'}
 
-    res = requests.get(api_uri, headers=user_agent,
+    res = requests.get(api_url, headers=user_agent,
                        params=top, allow_redirects=False)
     if res.status_code == 200:
         res = res.json()
