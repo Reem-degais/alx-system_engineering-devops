@@ -13,7 +13,7 @@ def top_ten(subreddit):
 
     user_agent = {'User-Agent': 'Python/requests'}
     top = {'limit': '10'}
-    res = requests.get(api_uri, headers=user_agent,
+    res = requests.get(api_url, headers=user_agent,
                        params=top, allow_redirects=False)
     if res.status_code in [302, 404]:
         print('None')
